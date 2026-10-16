@@ -2,7 +2,7 @@
 Şekil 2: 15 koşul üzerinde ortalama R² sırası (düşük = iyi), yöntem başına.
 Şekil 3: bileşen ablasyonu — tam SCWGI'ye göre eşleştirilmiş ΔR², veri seti bazında.
 Şekil 4: %90 aralık kapsaması — ham Gauss, bölünmüş konformal, Mondrian; veri seti bazında ve s üçte-birliklerine göre.
-Renk: SCWGI ailesi kategorik 1–2. slot (mavi, turuncu); diğer yöntemler nötr gri (vurgu ilkesi).
+Renk: SCWGI mavi; diğer yöntemler nötr gri (vurgu ilkesi). SCWGI-T kontrol varyantıdır ve Şekil 2'de yer almaz.
 """
 from pathlib import Path
 import numpy as np, pandas as pd
@@ -28,7 +28,7 @@ def fig_ranks():
     fig, ax = plt.subplots(figsize=(5.4, 0.32 * len(rank) + 1.2))
     plt.rcParams["hatch.linewidth"] = 0.8
     for i, (m, v) in enumerate(rank.items()):
-        col = BLUE if m == "SCWGI" else ORANGE if m == "SCWGI-T" else GRAY
+        col = BLUE if m == "SCWGI" else GRAY
         ind = m in inductive
         ax.barh(i, v, height=0.62, color=col if ind else "white", edgecolor=col, linewidth=1.0, hatch=None if ind else "////")
         ax.text(v + 0.08, i, f"{v:.2f}", va="center", color=INK, fontsize=8)

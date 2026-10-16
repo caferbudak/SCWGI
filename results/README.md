@@ -6,7 +6,7 @@ on the hidden test cells only, in z-scale, pooled over cells.
 | Path | Content |
 |---|---|
 | `scwgi/SCWGI_raw.csv` | SCWGI (inductive): MAE, RMSE, R², fit + impute time, selected marginal, K with the largest weight |
-| `scwgi/SCWGI-T_raw.csv` | SCWGI-T (transductive) |
+| `scwgi/SCWGI-T_raw.csv` | SCWGI-T, transductive control variant (excluded from the main comparison; summary in `summary/kontrol_SCWGI-T.csv`) |
 | `competitors/<Method>_raw.csv` | HyperImpute-library baselines (Mean = `Ortalama`, EM, MICE, MissForest, GAIN, SoftImpute, MIWAE) |
 | `competitors/HyperImpute_trainplus_*_raw.csv` | HyperImpute (fitted on training rows + masked test rows), two parts |
 | `competitors/deep_raw.csv` | TabDDPM and SAINT (trained on training rows only) |

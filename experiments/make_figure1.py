@@ -38,7 +38,6 @@ mid = lambda b, side: {"r": (b[0] + b[2] + 0.4, b[1] + b[3] / 2), "l": (b[0] - 0
                        "b": (b[0] + b[2] / 2, b[1] - 0.4), "t": (b[0] + b[2] / 2, b[1] + b[3] + 0.4)}[side]
 arrow(mid(b1, "r"), mid(b2, "l")); arrow(mid(b2, "r"), mid(b3, "l")); arrow(mid(b3, "r"), mid(b4, "l"))
 arrow(mid(b4, "b"), mid(b5, "t")); arrow(mid(b5, "l"), mid(b6, "r")); arrow(mid(b6, "l"), mid(b7, "r")); arrow(mid(b7, "l"), mid(b8, "r"))
-ax.text(50, 21.5, "Eğitim kümesi içi maskeli çapraz doğrulama: marjinal türü, her K için (λ, ε) ve " + r"$w_K\propto\exp(-(e_K-e_{min})/(\tau e_{min}))$" + "\n"
-        "SCWGI-T: çıkarımda bileşenler eğitim + doldurulacak satırların gözlenen hücreleriyle eksik-veri EM'iyle yeniden kestirilir",
+ax.text(50, 21.5, "Eğitim kümesi içi maskeli çapraz doğrulama: marjinal türü, her K için (λ, ε) ve " + r"$w_K\propto\exp(-(e_K-e_{min})/(\tau e_{min}))$",
         ha="center", va="center", fontsize=6.4, color=INK2, style="italic", linespacing=1.5)
 fig.subplots_adjust(0.005, 0.01, 0.995, 0.99); fig.savefig(O / "sekil1_yapi.png"); plt.close(fig); print("ok")

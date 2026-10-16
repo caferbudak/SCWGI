@@ -1,7 +1,7 @@
 # SCWGI — Soft-Cluster Weighted Gaussian Imputer
 
-Code, raw results and figure scripts accompanying the article *"SCWGI: Tablo Verilerinde Eksik Değerler için Yumuşak
-Küme Ağırlıklı Gauss Doldurucu ve Konformal Belirsizlik Aralıkları"* (Cafer Budak).
+Code, raw results and figure scripts accompanying the article *"SCWGI: Yumuşak Küme Ağırlıklı Gauss Modeliyle Eksik
+Veri Doldurma"* (Cafer Budak).
 
 SCWGI imputes missing values in numeric tabular data and returns, for every imputed cell, a point estimate and a
 calibrated prediction interval. It has no gradient-trained component: every setting is chosen by masked
@@ -18,10 +18,14 @@ cross-validation inside the training set, and imputation uses closed-form condit
 4. **Conformal uncertainty.** Split and Mondrian (tertiles of the model's conditional s.d.) conformal intervals on the
    standardised score |y − x̂| / s.
 
-Two inference modes are provided:
-- **SCWGI (inductive):** fitted on fully observed training rows only; never sees the rows it imputes.
-- **SCWGI-T (transductive):** identical training; at inference the mixture components are re-estimated by
-  missing-data EM on the training rows *plus the observed cells* of the rows being imputed. Hidden values are never used.
+The method reported in the article is **SCWGI (inductive)**: it is fitted on fully observed training rows only and
+never sees the rows it imputes.
+
+The package also contains a **transductive control variant** (`SCWGITImputer`, "SCWGI-T" in the code and result files):
+identical training; at inference the mixture components are re-estimated by missing-data EM on the training rows *plus
+the observed cells* of the rows being imputed (hidden values are never used). It is not part of the main comparison or
+the rankings; the article reports it only as a control in the Discussion (Section 4.4), and its summary is in
+`results/summary/kontrol_SCWGI-T.csv`.
 
 ## Installation
 
@@ -49,4 +53,4 @@ x_hat, lower, upper, s = cal.intervals(imp, X_missing, M, mondrian=True)
 table and figure. All raw per-seed results used in the article are in `results/` (see `results/README.md`).
 
 `tests/test_regression.py` checks that the packaged implementation reproduces the research code that produced the
-article's results (linear and copula marginals, atom indicators, transductive mode).
+article's results (linear and copula marginals, atom indicators, transductive control variant).

@@ -46,20 +46,21 @@ Run from the repository root (`python experiments/<script>.py`).
 | Script | Produces |
 |---|---|
 | `run_scwgi.py --mode inductive` | `results/scwgi/SCWGI_raw.csv` |
-| `run_scwgi.py --mode transductive` | `results/scwgi/SCWGI-T_raw.csv` |
+| `run_scwgi.py --mode transductive` | `results/scwgi/SCWGI-T_raw.csv` (transductive control variant, Discussion 4.4 only) |
 | `run_baselines_lib.py` | Mean, EM, MICE, MissForest, GAIN, SoftImpute, MIWAE (HyperImpute library v0.1.17) → `results/competitors/` |
 | `run_hyperimpute.py` | HyperImpute → `results/competitors/` |
 | `run_deep_baselines.py` | TabDDPM, SAINT → `results/competitors/deep_raw.csv` |
 | `run_ablation.py` | component ablation → `results/ablation/` |
 | `run_calibration.py` | conformal coverage and width → `results/calibration_raw.csv` |
-| `make_results.py` | Table 2 (R²), MAE/RMSE tables, ranks, Friedman and Holm–Wilcoxon tests, timings → `results/summary/` |
+| `make_results.py` | Table 2 (R²), Table 3 (Holm–Wilcoxon), Table 4 (timings), Supplementary Tables S1–S2 (MAE/RMSE), ranks, Friedman test and the SCWGI-T control summary → `results/summary/` |
 | `make_figures.py` | Figures 2–4 → `results/figures/` |
 | `make_figure1.py` | Figure 1 (schematic) → `results/figures/` |
 
 Library baselines and HyperImpute are fitted on the training rows stacked with the masked test rows (these methods are
 transductive by design); SCWGI, TabDDPM and SAINT are trained on the training rows only (at inference SAINT processes the test rows as one
-batch, so its row attention also uses the observed cells of other test rows). SCWGI-T gives SCWGI the same
-information as the transductive baselines. The Sinkhorn plugin was started but not completed (about 4 minutes per
+batch, so its row attention also uses the observed cells of other test rows). The transductive control variant
+SCWGI-T gives SCWGI the same information as these baselines; it is excluded from the rankings and statistical tests and
+is reported only in Section 4.4 of the article. The Sinkhorn plugin was started but not completed (about 4 minutes per
 condition even on Diabetes); its partial file is kept for transparency and is excluded from all summaries.
 
 ### Environment notes

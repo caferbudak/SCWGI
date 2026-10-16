@@ -1,7 +1,9 @@
 """
-make_results.py — SCWGI ile ortak protokoldeki tüm sonuçları birleştirir (makale Tablo 4–6).
-Koşul bazında ortalama ± std, birincilik sayıları, ortalama sıralar, Friedman testi, SCWGI'ye (ve SCWGI-T'ye) karşı
-Holm düzeltmeli Wilcoxon işaretli sıra testleri, endüktif/transdüktif grup analizleri, MNAR-MAE ve süre özetleri.
+make_results.py — SCWGI ile ortak protokoldeki tüm sonuçları birleştirir (makale Tablo 2–4, Ek Tablo S1–S2).
+Koşul bazında ortalama ± std, birincilik sayıları, ortalama sıralar, Friedman testi, SCWGI'ye karşı Holm düzeltmeli
+Wilcoxon işaretli sıra testleri, endüktif grup analizi, MNAR-MAE ve süre özetleri.
+SCWGI-T (transdüktif kontrol varyantı) karşılaştırmaya ve sıralamaya girmez; yalnızca SCWGI'ye göre eşleştirilmiş
+farkı ve Altın'da EM ile farkı raporlanır (makale Bölüm 4.4) → results/summary/kontrol_SCWGI-T.csv.
 Kaynaklar:
     results/scwgi/SCWGI_raw.csv, SCWGI-T_raw.csv           run_scwgi.py
     results/competitors/*_raw.csv                          run_baselines_lib.py, run_hyperimpute.py, run_deep_baselines.py
@@ -61,10 +63,11 @@ def main():
     cnt = d.groupby("Model").size(); complete = cnt[cnt == 75].index.tolist()
     print("Tamamlanan (75):", complete, "\nEksik:", cnt[cnt < 75].to_dict())
     d = d[d.Model.isin(complete)]
+    ctrl = d[d.Model == "SCWGI-T"]; d = d[d.Model != "SCWGI-T"]   # kontrol varyantı ana karşılaştırmanın dışında
     g = d.groupby(["Dataset", "Mechanism", "Rate", "Model"])[["MAE", "RMSE", "R2"]].agg(["mean", "std"]); g.to_csv(O / "kosul_ortalama_std.csv")
     mean = d.groupby(["Dataset", "Mechanism", "Rate", "Model"])[["MAE", "RMSE", "R2"]].mean()
     R2 = mean.R2.unstack("Model").loc[ORDER]; MAE = mean.MAE.unstack("Model").loc[ORDER]; RMSE = mean.RMSE.unstack("Model").loc[ORDER]
-    order_cols = [c for c in ["SCWGI", "SCWGI-T", "EM", "SAINT", "HyperImpute", "TabDDPM", "MissForest", "GAIN", "SoftImpute",
+    order_cols = [c for c in ["SCWGI", "EM", "SAINT", "HyperImpute", "TabDDPM", "MissForest", "GAIN", "SoftImpute",
                               "MICE", "MIWAE", "Ortalama"] if c in R2.columns]
     R2, MAE, RMSE = R2[order_cols], MAE[order_cols], RMSE[order_cols]
     models = list(R2.columns)
@@ -72,8 +75,8 @@ def main():
     fr = stats.friedmanchisquare(*[R2[m].values for m in models])
     win_r2 = R2.idxmax(1).value_counts().reindex(models, fill_value=0)
     win_mae = MAE.idxmin(1).value_counts().reindex(models, fill_value=0)
-    res = wilcoxon_vs(R2, "SCWGI", {"SCWGI-T"})
-    res_nomnar = wilcoxon_vs(R2.iloc[:12], "SCWGI", {"SCWGI-T"})
+    res = wilcoxon_vs(R2, "SCWGI", set())
+    res_nomnar = wilcoxon_vs(R2.iloc[:12], "SCWGI", set())
     out = [f"Friedman χ² = {fr.statistic:.2f}, p = {fr.pvalue:.2e} (k = {len(models)}, N = 15)",
            "Ortalama sıra (R²):\n" + rank.round(2).to_string(),
            "R² birincilik (koşul):\n" + win_r2.to_string(), "MAE birincilik (koşul):\n" + win_mae.to_string(),
@@ -82,17 +85,16 @@ def main():
     ind = [m for m in INDUCTIVE if m in R2.columns]
     out.append("Endüktif grup birincilik:\n" + R2[ind].idxmax(1).value_counts().to_string())
     out.append("Endüktif grup ortalama sıra:\n" + R2[ind].rank(1, ascending=False).mean().round(2).to_string())
-    if "SCWGI-T" in R2.columns:
-        trans = [m for m in models if m not in ("SCWGI", "SAINT", "TabDDPM")]
-        out.append("Transdüktif grup ortalama sıra:\n" + R2[trans].rank(1, ascending=False).mean().sort_values().round(2).to_string())
-        out.append("Transdüktif grup birincilik:\n" + R2[trans].idxmax(1).value_counts().to_string())
-        rt = wilcoxon_vs(R2[trans], "SCWGI-T", set()); rt.to_csv(O / "wilcoxon_holm_T.csv", index=False)
-        out.append("SCWGI-T'ye karşı Wilcoxon + Holm (transdüktif grup):\n" + rt.to_string(index=False))
+    if len(ctrl):   # transdüktif kontrol varyantı (makale Bölüm 4.4)
         K = ["Dataset", "Mechanism", "Rate", "Seed"]
-        a = d[d.Model == "SCWGI"].set_index(K).R2; t = d[d.Model == "SCWGI-T"].set_index(K).R2
+        a = d[d.Model == "SCWGI"].set_index(K).R2; t = ctrl.set_index(K).R2
         dd = (t - a).reset_index(); dd["Grup"] = dd.Dataset + " " + dd.Mechanism
         sm = dd.groupby("Grup").R2.agg(["mean", lambda v: v.std(ddof=1) / np.sqrt(len(v)), "count"]); sm.columns = ["ΔR²", "SE", "n"]
-        out.append("SCWGI-T − SCWGI (eşleştirilmiş, tohum düzeyi):\n" + sm.round(4).to_string())
+        gt = ctrl.groupby(["Dataset", "Mechanism", "Rate"]).R2.mean().loc[ORDER[3:6]]
+        gap = (R2.loc[ORDER[3:6], "EM"] - gt).rename("EM − SCWGI-T (Altın)")
+        sm.to_csv(O / "kontrol_SCWGI-T.csv")
+        out.append("Kontrol: SCWGI-T − SCWGI (eşleştirilmiş, tohum düzeyi):\n" + sm.round(4).to_string())
+        out.append("Kontrol: Altın'da EM − SCWGI-T (koşul ortalaması):\n" + gap.round(4).to_string())
     piv = d.pivot_table(index=["Dataset", "Mechanism", "Rate", "Seed"], columns="Model", values="R2")
     out.append("Tohum düzeyinde R² birincilik (75):\n" + piv.idxmax(1).value_counts().to_string())
     mn = MAE.iloc[12:]; out.append("MNAR MAE (düşük = iyi):\n" + mn.T.round(3).to_string())
