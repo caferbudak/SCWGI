@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scwgi"
+version = "1.0.0"
+description = "SCWGI: soft-cluster weighted conditional Gaussian imputation with adaptive copula marginals and conformal uncertainty"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "scikit-learn", "torch", "pandas"]
+
+[tool.setuptools]
+packages = ["scwgi"]

@@ -1,0 +1,76 @@
+Dataset,Model,Mechanism,Rate,Seed,MAE,RMSE,R2,fit_sec,marginal
+Diabetes,-atom,MAR,%10,42,0.4779,0.6184,0.2854,3.2,linear
+Diabetes,-atom,MAR,%20,42,0.5681,0.7862,0.0718,3.2,linear
+Diabetes,-atom,MAR,%10,142,0.4802,0.6064,0.3116,3.5,linear
+Diabetes,-atom,MAR,%20,142,0.5748,0.8735,-0.1445,3.5,linear
+Diabetes,-atom,MAR,%10,242,0.8769,1.4255,0.1766,3.3,linear
+Diabetes,-atom,MAR,%20,242,0.8472,1.305,0.1536,3.3,linear
+Diabetes,-atom,MAR,%10,342,0.5826,0.8364,0.1872,3.6,linear
+Diabetes,-atom,MAR,%20,342,0.6642,0.9288,0.1828,3.6,linear
+Diabetes,-atom,MAR,%10,442,0.6082,0.7732,0.3092,3.7,linear
+Diabetes,-atom,MAR,%20,442,0.5602,0.7151,0.3696,3.7,linear
+BreastCancer,-atom,MCAR,%10,42,0.1759,0.4286,0.8538,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%20,42,0.1807,0.3605,0.8783,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%30,42,0.1968,0.3817,0.883,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%10,142,0.152,0.305,0.9065,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%20,142,0.1583,0.2947,0.9116,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%30,142,0.1768,0.3368,0.8906,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%10,242,0.1347,0.2111,0.954,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%20,242,0.1681,0.3076,0.913,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%30,242,0.1756,0.3064,0.9078,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%10,342,0.1656,0.3239,0.9124,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%20,342,0.167,0.3024,0.9196,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%30,342,0.1934,0.3394,0.8983,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%10,442,0.1507,0.2346,0.9519,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%20,442,0.1686,0.312,0.9212,0.0,XA0 kopyası (atom yok)
+BreastCancer,-atom,MCAR,%30,442,0.191,0.3355,0.9056,0.0,XA0 kopyası (atom yok)
+Fertility,-atom,MCAR,%10,42,0.8146,1.0437,0.0657,0.8,linear
+Fertility,-atom,MCAR,%20,42,0.7829,0.9969,-0.0769,0.8,linear
+Fertility,-atom,MCAR,%30,42,0.8072,1.0243,0.0426,0.8,linear
+Fertility,-atom,MNAR,%10,42,1.9741,2.2012,-2.81,0.8,linear
+Fertility,-atom,MNAR,%20,42,1.6275,1.9754,-2.7551,0.8,linear
+Fertility,-atom,MNAR,%30,42,1.5179,1.7987,-2.7372,0.8,linear
+Fertility,-atom,MCAR,%10,142,0.8012,1.0055,0.0248,0.9,copula
+Fertility,-atom,MCAR,%20,142,0.8119,1.0297,0.0093,0.9,copula
+Fertility,-atom,MCAR,%30,142,0.865,1.0466,0.0296,0.9,copula
+Fertility,-atom,MNAR,%10,142,2.0264,2.2932,-3.1354,0.9,copula
+Fertility,-atom,MNAR,%20,142,1.786,2.0615,-3.0897,0.9,copula
+Fertility,-atom,MNAR,%30,142,1.6678,1.907,-3.2007,0.9,copula
+Fertility,-atom,MCAR,%10,242,0.8477,0.9863,0.0779,0.6,linear
+Fertility,-atom,MCAR,%20,242,0.9113,1.0852,0.0582,0.6,linear
+Fertility,-atom,MCAR,%30,242,0.9207,1.1329,0.058,0.6,linear
+Fertility,-atom,MNAR,%10,242,1.9858,2.2555,-3.0002,0.6,linear
+Fertility,-atom,MNAR,%20,242,1.7359,2.0342,-2.9821,0.6,linear
+Fertility,-atom,MNAR,%30,242,1.6261,1.8832,-3.0966,0.6,linear
+Fertility,-atom,MCAR,%10,342,0.9675,1.1599,0.0886,0.6,copula
+Fertility,-atom,MCAR,%20,342,0.8563,1.0372,0.1258,0.6,copula
+Fertility,-atom,MCAR,%30,342,0.8462,1.0295,0.0846,0.6,copula
+Fertility,-atom,MNAR,%10,342,1.9226,2.1911,-2.7751,0.6,copula
+Fertility,-atom,MNAR,%20,342,1.6565,1.9803,-2.7739,0.6,copula
+Fertility,-atom,MNAR,%30,342,1.585,1.8539,-2.9703,0.6,copula
+Fertility,-atom,MCAR,%10,442,1.0427,1.3706,0.0286,0.7,linear
+Fertility,-atom,MCAR,%20,442,0.997,1.2705,0.0662,0.7,linear
+Fertility,-atom,MCAR,%30,442,0.9357,1.1628,0.067,0.7,linear
+Fertility,-atom,MNAR,%10,442,1.9491,2.2274,-2.9013,0.7,linear
+Fertility,-atom,MNAR,%20,442,1.7072,2.0075,-2.8781,0.7,linear
+Fertility,-atom,MNAR,%30,442,1.6,1.8623,-3.0063,0.7,linear
+GoldPrice,-atom,MCAR,%5,42,0.1244,0.3206,0.899,134.7,copula
+GoldPrice,-atom,MCAR,%10,42,0.1274,0.3188,0.8999,134.7,copula
+GoldPrice,-atom,MCAR,%15,42,0.127,0.3196,0.8995,134.7,copula
+GoldPrice,-atom,MCAR,%5,142,0.1139,0.3038,0.9103,126.4,linear
+GoldPrice,-atom,MCAR,%10,142,0.121,0.3137,0.904,126.4,linear
+GoldPrice,-atom,MCAR,%15,142,0.1274,0.3266,0.8962,126.4,linear
+GoldPrice,-atom,MCAR,%5,242,0.1105,0.2889,0.9186,132.3,linear
+GoldPrice,-atom,MCAR,%10,242,0.1193,0.3174,0.9029,132.3,linear
+GoldPrice,-atom,MCAR,%15,242,0.121,0.312,0.9056,132.3,linear
+GoldPrice,-atom,MCAR,%5,342,0.1212,0.3169,0.8999,130.1,linear
+GoldPrice,-atom,MCAR,%10,342,0.1216,0.3096,0.9058,130.1,linear
+GoldPrice,-atom,MCAR,%15,342,0.1251,0.3183,0.9,130.1,linear
+GoldPrice,-atom,MCAR,%5,442,0.1188,0.298,0.9101,128.6,linear
+GoldPrice,-atom,MCAR,%10,442,0.1183,0.2978,0.9107,128.6,linear
+GoldPrice,-atom,MCAR,%15,442,0.1232,0.3142,0.9024,128.6,linear
+CWRU,-atom,MCAR,%10,42,0.4353,0.6147,0.6352,0.0,XA0 kopyası (atom yok)
+CWRU,-atom,MCAR,%10,142,0.4272,0.6058,0.6373,0.0,XA0 kopyası (atom yok)
+CWRU,-atom,MCAR,%10,242,0.4391,0.6206,0.6107,0.0,XA0 kopyası (atom yok)
+CWRU,-atom,MCAR,%10,342,0.446,0.6322,0.6284,0.0,XA0 kopyası (atom yok)
+CWRU,-atom,MCAR,%10,442,0.4269,0.5985,0.6455,0.0,XA0 kopyası (atom yok)

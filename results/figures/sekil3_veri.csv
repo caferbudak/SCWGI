@@ -1,0 +1,31 @@
+Varyant,Veri seti,ΔR²_ort,SE,n
+− kopula (doğrusal marjinal),BreastCancer,-0.0195,0.0043,15
+− kopula (doğrusal marjinal),CWRU,0.0,0.0,5
+− kopula (doğrusal marjinal),Diabetes,0.0,0.0,10
+− kopula (doğrusal marjinal),Fertility,-0.003,0.0049,15
+− kopula (doğrusal marjinal),GoldPrice,0.0008,0.0004,15
+− atom göstergesi,BreastCancer,0.0,0.0,15
+− atom göstergesi,CWRU,0.0,0.0,5
+− atom göstergesi,Diabetes,-0.0446,0.0349,10
+− atom göstergesi,Fertility,-0.0313,0.018,15
+− atom göstergesi,GoldPrice,-0.0012,0.0004,15
+− model ortalaması (tek K),BreastCancer,-0.0047,0.001,15
+− model ortalaması (tek K),CWRU,-0.0125,0.0035,5
+− model ortalaması (tek K),Diabetes,-0.0547,0.0375,10
+− model ortalaması (tek K),Fertility,-0.0002,0.0034,15
+− model ortalaması (tek K),GoldPrice,-0.0021,0.0002,15
+− kümeleme (K = 1),BreastCancer,-0.0073,0.0012,15
+− kümeleme (K = 1),CWRU,-0.0608,0.0029,5
+− kümeleme (K = 1),Diabetes,0.0283,0.0123,10
+− kümeleme (K = 1),Fertility,-0.0266,0.0058,15
+− kümeleme (K = 1),GoldPrice,-0.0101,0.0005,15
+− kovaryans büzülmesi,BreastCancer,-0.0053,0.0013,15
+− kovaryans büzülmesi,CWRU,0.0009,0.0005,5
+− kovaryans büzülmesi,Diabetes,0.011,0.0046,10
+− kovaryans büzülmesi,Fertility,0.0028,0.0033,15
+− kovaryans büzülmesi,GoldPrice,0.0005,0.0003,15
+FCM üyelik ağırlığı,BreastCancer,0.0001,0.0009,15
+FCM üyelik ağırlığı,CWRU,-0.0491,0.0031,5
+FCM üyelik ağırlığı,Diabetes,0.0317,0.0141,10
+FCM üyelik ağırlığı,Fertility,-0.031,0.0081,15
+FCM üyelik ağırlığı,GoldPrice,-0.0032,0.0004,15

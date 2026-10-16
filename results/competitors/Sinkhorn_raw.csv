@@ -1,0 +1,5 @@
+Dataset,Model,Protocol,Mechanism,Rate,Seed,MAE,RMSE,R2,Time_sec
+Diabetes,Sinkhorn,train+test,MAR,%10,42,0.3849,0.4903,0.5508,243.7
+Diabetes,Sinkhorn,train+test,MAR,%20,42,0.5102,0.706,0.2515,238.7
+Diabetes,Sinkhorn,train+test,MAR,%10,142,0.5692,0.7732,-0.1191,234.1
+Diabetes,Sinkhorn,train+test,MAR,%20,142,0.5834,0.809,0.0182,236.0

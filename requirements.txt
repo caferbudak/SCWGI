@@ -1,0 +1,10 @@
+# SCWGI
+numpy>=1.24
+scipy>=1.11
+scikit-learn>=1.3
+pandas>=2.0
+torch>=2.0
+matplotlib>=3.7
+# Karşılaştırma yöntemleri için (experiments/run_baselines_lib.py, run_hyperimpute.py) ayrı bir ortam önerilir:
+#   hyperimpute==0.1.17  (scikit-learn<1.6 ve pandas<3 gerektirir; ayrıntı: experiments/README.md)
+#   geomloss             (yalnız Sinkhorn eklentisi için)
