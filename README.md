@@ -1,13 +1,14 @@
 # SCWGI — Soft-Cluster Weighted Gaussian Imputer
 
-Code, raw results and figure scripts accompanying the article *"SCWGI: …"* (Terzioğlu & Budak).
+Code, raw results and figure scripts accompanying the article *"SCWGI: Tablo Verilerinde Eksik Değerler için Yumuşak
+Küme Ağırlıklı Gauss Doldurucu ve Konformal Belirsizlik Aralıkları"* (Cafer Budak).
 
 SCWGI imputes missing values in numeric tabular data and returns, for every imputed cell, a point estimate and a
 calibrated prediction interval. It has no gradient-trained component: every setting is chosen by masked
 cross-validation inside the training set, and imputation uses closed-form conditional-Gaussian computations.
 
 1. **Atom indicators.** A feature with at least 11 distinct values whose modal value has relative frequency ≥ 5 %
-   (e.g. zero-inflated clinical measurements) gets an indicator column whose mask is tied to the feature's mask.
+   (e.g. a spike at zero or at a frequent value) gets an indicator column whose mask is tied to the feature's mask.
 2. **Data-adaptive marginal.** Each dataset chooses, by internal masked CV, between a linear (z-score) space and an
    empirical Gaussian-copula space (Gauss–Hermite back-transformation, 32 nodes).
 3. **Soft-cluster weighted conditional Gaussian.** FCM-initialised EM Gaussian mixtures; cluster covariances shrunk

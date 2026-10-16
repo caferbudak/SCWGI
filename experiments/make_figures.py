@@ -1,7 +1,7 @@
 """make_figures.py — Makale şekilleri (300 dpi PNG, yayın için açık zemin).
 Şekil 2: 15 koşul üzerinde ortalama R² sırası (düşük = iyi), yöntem başına.
 Şekil 3: bileşen ablasyonu — tam SCWGI'ye göre eşleştirilmiş ΔR², veri seti bazında.
-Şekil 4: %90 aralık kapsaması — ham Gauss, bölünmüş konformal, Mondrian; veri seti bazında ve s_G üçte-birliklerine göre.
+Şekil 4: %90 aralık kapsaması — ham Gauss, bölünmüş konformal, Mondrian; veri seti bazında ve s üçte-birliklerine göre.
 Renk: SCWGI ailesi kategorik 1–2. slot (mavi, turuncu); diğer yöntemler nötr gri (vurgu ilkesi).
 """
 from pathlib import Path
@@ -22,15 +22,23 @@ DS_TR = {"BreastCancer": "Meme Kanseri", "GoldPrice": "Altın", "CWRU": "CWRU", 
 def fig_ranks():
     R2 = pd.read_csv(R / "summary/R2_kosul_tam.csv", index_col=[0, 1, 2])   # yuvarlanmamış ortalamalar (sıra bağı yapay oluşmasın)
     rank = R2.rank(1, ascending=False).mean().sort_values(ascending=False)
-    fig, ax = plt.subplots(figsize=(5.2, 0.32 * len(rank) + 0.8))
-    cols = [BLUE if m == "SCWGI" else ORANGE if m == "SCWGI-T" else GRAY for m in rank.index]
-    ax.barh(range(len(rank)), rank.values, color=cols, height=0.62)
-    for i, v in enumerate(rank.values):
+    # Düz çubuk: yalnızca eğitim kümesinde eğitilen (endüktif) yöntemler; taralı: transdüktif yöntemler
+    from matplotlib.patches import Patch
+    inductive = {"SCWGI", "SAINT", "TabDDPM"}
+    fig, ax = plt.subplots(figsize=(5.4, 0.32 * len(rank) + 1.2))
+    plt.rcParams["hatch.linewidth"] = 0.8
+    for i, (m, v) in enumerate(rank.items()):
+        col = BLUE if m == "SCWGI" else ORANGE if m == "SCWGI-T" else GRAY
+        ind = m in inductive
+        ax.barh(i, v, height=0.62, color=col if ind else "white", edgecolor=col, linewidth=1.0, hatch=None if ind else "////")
         ax.text(v + 0.08, i, f"{v:.2f}", va="center", color=INK, fontsize=8)
     ax.set_yticks(range(len(rank))); ax.set_yticklabels(rank.index)
     ax.set_xlabel("Ortalama sıra (R², 15 koşul; düşük = daha iyi)"); ax.set_xlim(0, rank.max() + 1.2)
     ax.xaxis.grid(True, color="#e6e5e0", lw=0.6); ax.set_axisbelow(True)
-    fig.tight_layout(); fig.savefig(O / "sekil2_ortalama_sira.png"); plt.close(fig)
+    handles = [Patch(facecolor=GRAY, edgecolor=GRAY, label="Endüktif (yalnızca eğitim kümesinde eğitilen)"),
+               Patch(facecolor="white", edgecolor=GRAY, hatch="////", label="Transdüktif (doldurulacak satırları da kullanan)")]
+    fig.legend(handles=handles, loc="lower center", ncol=1, frameon=False, fontsize=8, bbox_to_anchor=(0.55, 0.0))
+    fig.tight_layout(rect=(0, 0.1, 1, 1)); fig.savefig(O / "sekil2_ortalama_sira.png"); plt.close(fig)
 
 
 def fig_ablation():
@@ -82,7 +90,7 @@ def fig_calibration():
         axes[0].plot(x + (i - 1) * w, g[col], mk, ms=6, color=colr, label=lab, mec="white", mew=0.8)
     for i, (col, colr, mk) in enumerate((("cov90_conf_yüksek", BLUE, "o"), ("cov90_mond_yüksek", AQUA, "D"))):
         axes[1].plot(x + (i - 0.5) * w, t[col], mk, ms=6, color=colr, mec="white", mew=0.8)
-    for ax, ttl in zip(axes, ("Tüm hücreler", "En belirsiz üçte-bir (yüksek s_G)")):
+    for ax, ttl in zip(axes, ("Tüm hücreler", "En belirsiz üçte-bir (yüksek s)")):
         ax.axhline(0.90, color=INK, lw=0.8, ls="--"); ax.set_xticks(x); ax.set_xticklabels([DS_TR[d] for d in order], fontsize=8)
         ax.set_ylim(0.74, 1.0); ax.set_xlim(-0.6, len(order) - 0.4); ax.set_title(ttl, fontsize=9, color=INK)
         ax.yaxis.grid(True, color="#e6e5e0", lw=0.6); ax.set_axisbelow(True)
